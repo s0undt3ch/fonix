@@ -1,0 +1,2 @@
+# fonix
+My NixOS Configuration

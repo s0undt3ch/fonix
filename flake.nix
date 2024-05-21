@@ -17,7 +17,7 @@
       pkgs = import nixpkgs { inherit system; };
     in {
       homeConfigurations = {
-        myprofile = home-manager.lib.homeManagerConfiguration {
+        vampas = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./home.nix ];
         };

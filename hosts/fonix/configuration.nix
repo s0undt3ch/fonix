@@ -9,6 +9,9 @@
 }: {
   # You can import other NixOS modules here
   imports = [
+    # Import home-manager's NixOS module
+    inputs.home-manager.nixosModules.home-manager
+
     # If you want to use modules your own flake exports (from modules/nixos):
     # outputs.nixosModules.example
 
@@ -71,10 +74,18 @@
       nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
     };
 
+  home-manager = {
+    extraSpecialArgs = { inherit inputs outputs; };
+    users = {
+      # Import your home-manager configuration
+      vampas = import ../../home-manager/home.nix;
+    };
+  };
+
   networking.hostName = "fonix";
 
   users.users = {
-    fonix = {
+    vampas = {
       # You can set an initial password for your user.
       # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
       # Be sure to change it (using passwd) after rebooting!
@@ -89,6 +100,9 @@
         "audio"
         "docker"
         "networkmanager"
+      ];
+      packages = [
+        inputs.home-manager.packages.${pkgs.system}.default
       ];
     };
   };

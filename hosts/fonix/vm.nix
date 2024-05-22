@@ -6,8 +6,7 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [
     ];
 
   # Bootloader.
@@ -22,50 +21,6 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "Europe/Lisbon";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "pt_PT.UTF-8";
-    LC_IDENTIFICATION = "pt_PT.UTF-8";
-    LC_MEASUREMENT = "pt_PT.UTF-8";
-    LC_MONETARY = "pt_PT.UTF-8";
-    LC_NAME = "pt_PT.UTF-8";
-    LC_NUMERIC = "pt_PT.UTF-8";
-    LC_PAPER = "pt_PT.UTF-8";
-    LC_TELEPHONE = "pt_PT.UTF-8";
-    LC_TIME = "pt_PT.UTF-8";
-  };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the Budgie Desktop environment.
-  # services.xserver.displayManager.lightdm.enable = true;
-  # services.xserver.desktopManager.budgie.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    kate
-  ];
-
-  virtualisation.virtualbox.guest.enable = true;
-  #virtualisation.virtualbox.guest.x11 = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-  };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -87,32 +42,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.vampas = {
-    isNormalUser = true;
-    description = "Pedro Algarvio";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
-  };
-
-  # Install firefox.
-  programs.firefox.enable = true;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-    vim
-    git
-    just
-  ];
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -131,6 +60,8 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  virtualisation.virtualbox.guest.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -106,6 +106,40 @@
     };
   };
 
+  # Enable networking
+  networking.networkmanager.enable = true;
+
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "";
+  };
+
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    kate
+  ];
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Install firefox.
+  programs.firefox.enable = true;
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+    vim
+    git
+    just
+  ];
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
 }

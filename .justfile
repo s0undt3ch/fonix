@@ -5,7 +5,7 @@ update username="vampas":
 update-system hostname="fonix":
   #!/usr/bin/env sh
   cd $(dirname {{justfile()}})
-  if [ $(uid) -eq 0 ]; then
+  if [ $(id -u) -eq 0 ]; then
     nixos-rebuild --flake .#{{hostname}} switch
   else
     sudo nixos-rebuild --flake .#{{hostname}} switch

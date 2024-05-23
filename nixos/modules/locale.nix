@@ -1,4 +1,4 @@
-{ ... }:
+_:
 
 {
   imports = [ ];
@@ -21,4 +21,6 @@
     LC_TIME = "pt_PT.UTF-8";
   };
 
+  # Configure console keymap
+  console.keyMap = "us";
 }

@@ -1,6 +1,6 @@
-update username="vampas":
+update username="vampas" hostname="fonix":
   cd $(dirname {{justfile()}})
-  home-manager switch --flake .#{{username}}
+  home-manager switch --flake .#{{username}}@{{hostname}}
 
 update-system hostname="fonix":
   #!/usr/bin/env sh

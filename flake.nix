@@ -14,7 +14,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Nix NeoVim
-    inputs.nixneovim.url = "github:nixneovim/nixneovim";
+    nixneovim.url = "github:nixneovim/nixneovim";
   };
 
   outputs =

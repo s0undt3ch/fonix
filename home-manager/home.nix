@@ -22,7 +22,7 @@ in
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
 
-    nixneovim.nixosModules.default
+    #nixneovim.nixosModules.default
   ];
 
   nixpkgs = {
@@ -32,7 +32,7 @@ in
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
-      nixneovim.overlays.default
+      #nixneovim.overlays.default
 
       # You can also add overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default

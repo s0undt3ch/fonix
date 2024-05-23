@@ -39,7 +39,7 @@
   outputs = { self, nixpkgs, nixos, home-manager, agenix, impermanence, disko, ... } @ inputs:
     let
       overlays = [
-        inputs.neovim-nightly-overlay.overlay
+        inputs.neovim-nightly-overlay.overlays.default
         # (import ./overlays/weechat.nix)
       ];
 

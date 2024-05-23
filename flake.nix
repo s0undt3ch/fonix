@@ -30,13 +30,13 @@
       url = "github:nix-community/disko/master";
     };
 
-    secrets = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "git+ssh://git@github.com/s0undt3ch/agenix-secrets.git?ref=main";
-    };
+    #secrets = {
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #  url = "git+ssh://git@github.com/s0undt3ch/agenix-secrets.git?ref=main";
+    #};
   };
 
-  outputs = { self, nixpkgs, nixos, home-manager, secrets, agenix, impermanence, disko, ... } @ inputs:
+  outputs = { self, nixpkgs, nixos, home-manager, agenix, impermanence, disko, ... } @ inputs:
     let
       overlays = [
         inputs.neovim-nightly-overlay.overlay
@@ -83,7 +83,6 @@
               {
                 nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
               }
-              secrets.nixosModules.desktop or { }
               #secrets.nixosModules.desktop or { }
               home-manager.nixosModules.home-manager
               {

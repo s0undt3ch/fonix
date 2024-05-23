@@ -96,6 +96,7 @@
         "audio"
         "docker"
         "networkmanager"
+        "mlocate"
       ];
       packages = [
         inputs.home-manager.packages.${pkgs.system}.default
@@ -137,17 +138,23 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # Enable 'locate foo' service
+  services.locate = {
+    enable = true;
+    locate = pkgs.mlocate;
+    interval = "hourly";
+  };
+
   # Install firefox.
   programs.firefox.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
     vim
     git
     just
+    skanpage
   ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

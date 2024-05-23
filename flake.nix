@@ -12,6 +12,9 @@
     # Home manager
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Nix NeoVim
+    inputs.nixneovim.url = "github:nixneovim/nixneovim";
   };
 
   outputs =

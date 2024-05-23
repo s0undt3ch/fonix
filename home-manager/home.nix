@@ -21,6 +21,8 @@ in
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
+
+    nixneovim.nixosModules.default
   ];
 
   nixpkgs = {
@@ -30,6 +32,7 @@ in
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
+      nixneovim.overlays.default
 
       # You can also add overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
@@ -54,10 +57,18 @@ in
   };
 
   # Add stuff for your user as you see fit:
-  programs.neovim.enable = true;
-  home.packages = with pkgs; [
-    actionlint # GitHub Actions Linter, used by pre-commit hooks
-  ];
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    withPython3 = true;
+    defaultEditor = true;
+  };
+
+  home.packages = with pkgs;
+    [
+      actionlint # GitHub Actions Linter, used by pre-commit hooks
+    ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;

@@ -1,4 +1,14 @@
 { pkgs, ... }:
+let
+  tmux-shared-windows = pkgs.writeShellScriptBin "tmux-shared-windows" ''
+    tmux start-server 2> /dev/null
+    sleep 1
+    tmux has-session -t $(whoami) && tmux new-session -t $(whoami) -s "$(whoami)-$(tmux list-sessions | wc -l)" || tmux new-session -s $(whoami) -d 2> /dev/null
+    tmux selectp -t 1
+    tmux split-window -v -d -l 25%
+    tmux attach-session -t $(whoami)
+  '';
+in
 {
   programs.tmux = {
     enable = true;
@@ -89,4 +99,9 @@
     '';
 
   };
+
+  home.packages = [
+    tmux-shared-windows
+  ];
+
 }

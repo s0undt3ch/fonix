@@ -27,5 +27,6 @@ in
     ../../programs/git.nix
     ../../programs/tmux.nix
     ../../programs/neovim
+    ../../programs/nushell.nix
   ];
 }

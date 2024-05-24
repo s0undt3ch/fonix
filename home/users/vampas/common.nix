@@ -26,5 +26,6 @@ in
   imports = [
     ../../programs/git.nix
     ../../programs/tmux.nix
+    ../../programs/neovim
   ];
 }

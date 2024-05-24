@@ -28,5 +28,6 @@ in
     ../../programs/tmux.nix
     ../../programs/neovim
     ../../programs/nushell.nix
+    ../../programs/gpg.nix
   ];
 }

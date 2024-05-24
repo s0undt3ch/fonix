@@ -29,5 +29,6 @@ in
     ../../programs/neovim
     ../../programs/nushell.nix
     ../../programs/gpg.nix
+    ../../programs/kitty.nix
   ];
 }

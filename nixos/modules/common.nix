@@ -10,6 +10,11 @@
     home-manager
   ];
 
+  environment.shells = with pkgs; [
+    bash
+    zsh
+  ];
+
   # Enable 'locate foo' service
   services.locate = {
     enable = true;
@@ -22,6 +27,7 @@
     ./user.nix
     ./nix-options.nix
     ./locale.nix
+    ./zsh.nix
   ];
 
 }

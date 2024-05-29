@@ -29,5 +29,6 @@ in
     ../../programs/neovim
     ../../programs/gpg.nix
     ../../programs/kitty.nix
+    ../../programs/plasma.nix
   ];
 }

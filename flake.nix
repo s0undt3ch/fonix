@@ -7,7 +7,7 @@
 
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/release-24.05";
     };
 
     plasma-manager = {
@@ -69,14 +69,6 @@
 
     in
     {
-      homeConfigurations = {
-        "vampas@fonix" = home-manager.lib.homeManagerConfiguration {
-          pkgs = x86Pkgs;
-          modules = [
-            ./home/users/vampas/fonix.nix
-          ];
-        };
-      };
 
       nixosConfigurations = {
         fonix = nixos.lib.nixosSystem {

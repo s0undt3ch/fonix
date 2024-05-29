@@ -10,6 +10,12 @@
       url = "github:nix-community/home-manager/master";
     };
 
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     neovim-nightly-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/neovim-nightly-overlay";
@@ -36,8 +42,10 @@
     #};
   };
 
-  outputs = { self, nixpkgs, nixos, home-manager, agenix, impermanence, disko, ... } @ inputs:
+  outputs = { self, nixpkgs, nixos, home-manager, plasma-manager, agenix, impermanence, disko, ... } @ inputs:
     let
+      system = "x86_64-linux";
+
       overlays = [
         inputs.neovim-nightly-overlay.overlays.default
         # (import ./overlays/weechat.nix)
@@ -72,7 +80,8 @@
 
       nixosConfigurations = {
         fonix = nixos.lib.nixosSystem {
-          system = "x86_64-linux";
+          inherit system;
+
           pkgs = nixosPackages;
           modules =
             [
@@ -86,6 +95,9 @@
               #secrets.nixosModules.desktop or { }
               home-manager.nixosModules.home-manager
               {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
                 home-manager.extraSpecialArgs = {
                   pkgs = x86Pkgs;
                 };

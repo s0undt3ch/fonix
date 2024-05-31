@@ -16,11 +16,11 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    neovim-nightly-overlay = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.neovim-flake.url = "github:neovim/neovim?dir=contrib&rev=8744ee8783a8597f9fce4a573ae05aca2f412120";
-    };
+    #neovim-nightly-overlay = {
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #  url = "github:nix-community/neovim-nightly-overlay";
+    #  inputs.neovim-flake.url = "github:neovim/neovim?dir=contrib&rev=8744ee8783a8597f9fce4a573ae05aca2f412120";
+    #};
 
     agenix = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -69,7 +69,7 @@
     system = "x86_64-linux";
 
     overlays = [
-      inputs.neovim-nightly-overlay.overlays.default
+      # inputs.neovim-nightly-overlay.overlays.default
       # (import ./overlays/weechat.nix)
     ];
 
@@ -92,6 +92,32 @@
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
     nixosConfigurations = {
+      lenny = nixos.lib.nixosSystem {
+        inherit system;
+
+        pkgs = nixosPackages;
+        modules = [
+          ./nixos/lenny.nix
+          disko.nixosModules.disko
+          impermanence.nixosModule
+          agenix.nixosModules.default
+          {
+            nix.nixPath = ["nixpkgs=flake:nixpkgs"];
+          }
+          #secrets.nixosModules.desktop or { }
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
+            home-manager.extraSpecialArgs = {
+              pkgs = x86Pkgs;
+            };
+            home-manager.users.vampas = import ./home/users/vampas/fonix.nix;
+          }
+        ];
+      };
+
       fonix = nixos.lib.nixosSystem {
         inherit system;
 

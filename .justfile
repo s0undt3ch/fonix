@@ -1,10 +1,11 @@
-update username="vampas" hostname="fonix":
-  cd $(dirname {{justfile()}})
+update username=`id -un` hostname=`hostname`:
+  #!/usr/bin/env sh
+  cd {{justfile_directory()}}
   home-manager switch --flake .#{{username}}@{{hostname}}
 
-update-system hostname="fonix":
+update-system hostname=`hostname`:
   #!/usr/bin/env sh
-  cd $(dirname {{justfile()}})
+  cd {{justfile_directory()}}
   if [ $(id -u) -eq 0 ]; then
     nixos-rebuild --flake .#{{hostname}} switch
   else

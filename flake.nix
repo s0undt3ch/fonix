@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/release-24.05";
     nixos.url = "github:nixos/nixpkgs/release-24.05";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,6 +47,7 @@
     self,
     nixpkgs,
     nixos,
+    nixos-hardware,
     home-manager,
     plasma-manager,
     agenix,
@@ -97,6 +99,7 @@
 
         pkgs = nixosPackages;
         modules = [
+          nixos-hardware.nixosModules.lenovo-thinkpad-p50
           ./nixos/lenny.nix
           disko.nixosModules.disko
           impermanence.nixosModule

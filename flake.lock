@@ -126,11 +126,11 @@
     },
     "nixos": {
       "locked": {
-        "lastModified": 1717182667,
-        "narHash": "sha256-WLK69tBrz2t6d+OATASRqKcQMiMmEKVMgF99FHPJqUI=",
+        "lastModified": 1717188424,
+        "narHash": "sha256-B9PgoHGs6pKojSCdhAdDzXvYnesCYFJ82Jj3d4LMuC0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "4c7cb810cb12ccfb23ab69fabaeac33dd9613c2a",
+        "rev": "35ea0070d2efbd11a711450737c74714cfa26496",
         "type": "github"
       },
       "original": {
@@ -140,13 +140,29 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1716987116,
+        "narHash": "sha256-uuEkErFVsFdg2K0cKbNQ9JlFSAm/xYqPr4rbPLI91Y8=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "8251761f93d6f5b91cee45ac09edb6e382641009",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1717182667,
-        "narHash": "sha256-WLK69tBrz2t6d+OATASRqKcQMiMmEKVMgF99FHPJqUI=",
+        "lastModified": 1717188424,
+        "narHash": "sha256-B9PgoHGs6pKojSCdhAdDzXvYnesCYFJ82Jj3d4LMuC0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "4c7cb810cb12ccfb23ab69fabaeac33dd9613c2a",
+        "rev": "35ea0070d2efbd11a711450737c74714cfa26496",
         "type": "github"
       },
       "original": {
@@ -166,11 +182,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1716902607,
-        "narHash": "sha256-jShqpVupP/7ksp6gCBVG9/05zYSX8Q+z6eGe9HLYtUs=",
+        "lastModified": 1717187140,
+        "narHash": "sha256-FBO7osTyKp6d5xFIxDrIV1DU7q9uT1B92alOUpBnwXA=",
         "owner": "pjones",
         "repo": "plasma-manager",
-        "rev": "4a255e5ea6bf2c7815d893a693c5c801d835ba6b",
+        "rev": "2636bb4c0646931b1d9e7a17cea19e3a04a1ea60",
         "type": "github"
       },
       "original": {
@@ -186,6 +202,7 @@
         "home-manager": "home-manager_2",
         "impermanence": "impermanence",
         "nixos": "nixos",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "plasma-manager": "plasma-manager"
       }

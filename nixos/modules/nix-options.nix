@@ -1,13 +1,11 @@
-{ lib
-, context
-, pkgs
-, config
-, nixpkgs
-, ...
-}:
-
 {
-
+  lib,
+  context,
+  pkgs,
+  config,
+  nixpkgs,
+  ...
+}: {
   nix = {
     package = pkgs.nixVersions.latest;
     gc = {
@@ -15,15 +13,19 @@
       dates = "weekly";
       options = "--delete-older-than 10d";
     };
-    extraOptions = /* toml */ ''
-      bash-prompt = "\[nix-develop\]$ ";
-      experimental-features = nix-command flakes
-      auto-optimise-store = true
-      min-free = ${toString (100 * 1024 * 1024)}
-      max-free = ${toString (1024 * 1024 * 1024)}
-      keep-outputs = true
-      keep-derivations = true
-    '';
+    extraOptions =
+      /*
+      toml
+      */
+      ''
+        bash-prompt = "\[nix-develop\]$ ";
+        experimental-features = nix-command flakes
+        auto-optimise-store = true
+        min-free = ${toString (100 * 1024 * 1024)}
+        max-free = ${toString (1024 * 1024 * 1024)}
+        keep-outputs = true
+        keep-derivations = true
+      '';
     settings = {
       substituters = [
         "https://nix-community.cachix.org"

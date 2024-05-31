@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-{
-
+{pkgs, ...}: {
   # Vim should be the default editor
   programs.vim.defaultEditor = true;
 
@@ -29,5 +27,4 @@
     ./locale.nix
     ./zsh.nix
   ];
-
 }

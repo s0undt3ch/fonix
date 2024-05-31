@@ -1,16 +1,15 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, ...
-}:
-let
-  username = "vampas";
-in
 {
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  username = "vampas";
+in {
   # You can import other home-manager modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
@@ -65,10 +64,9 @@ in
     defaultEditor = true;
   };
 
-  home.packages = with pkgs;
-    [
-      actionlint # GitHub Actions Linter, used by pre-commit hooks
-    ];
+  home.packages = with pkgs; [
+    actionlint # GitHub Actions Linter, used by pre-commit hooks
+  ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;

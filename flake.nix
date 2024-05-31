@@ -42,69 +42,89 @@
     #};
   };
 
-  outputs = { self, nixpkgs, nixos, home-manager, plasma-manager, agenix, impermanence, disko, ... } @ inputs:
-    let
-      system = "x86_64-linux";
+  outputs = {
+    self,
+    nixpkgs,
+    nixos,
+    home-manager,
+    plasma-manager,
+    agenix,
+    impermanence,
+    disko,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
+    # Supported systems for your flake packages, shell, etc.
+    systems = [
+      "aarch64-linux"
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
+    # This is a function that generates an attribute by calling a function you
+    # pass to it, with each system as an argument
+    forAllSystems = nixpkgs.lib.genAttrs systems;
 
-      overlays = [
-        inputs.neovim-nightly-overlay.overlays.default
-        # (import ./overlays/weechat.nix)
+    system = "x86_64-linux";
+
+    overlays = [
+      inputs.neovim-nightly-overlay.overlays.default
+      # (import ./overlays/weechat.nix)
+    ];
+
+    config = {
+      allowUnfree = true;
+      permittedInsecurePackages = [
       ];
+    };
 
-      config = {
-        allowUnfree = true;
-        permittedInsecurePackages = [
+    nixosPackages = import nixos {
+      system = "x86_64-linux";
+      inherit config overlays;
+    };
+
+    x86Pkgs = import nixpkgs {
+      system = "x86_64-linux";
+      inherit config overlays;
+    };
+  in {
+    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+
+    nixosConfigurations = {
+      fonix = nixos.lib.nixosSystem {
+        inherit system;
+
+        pkgs = nixosPackages;
+        modules = [
+          ./nixos/fonix-vm.nix
+          disko.nixosModules.disko
+          impermanence.nixosModule
+          agenix.nixosModules.default
+          {
+            nix.nixPath = ["nixpkgs=flake:nixpkgs"];
+          }
+          #secrets.nixosModules.desktop or { }
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [plasma-manager.homeManagerModules.plasma-manager];
+            home-manager.extraSpecialArgs = {
+              pkgs = x86Pkgs;
+            };
+            home-manager.users.vampas = import ./home/users/vampas/fonix.nix;
+          }
         ];
       };
 
-      nixosPackages = import nixos {
-        system = "x86_64-linux";
-        inherit config overlays;
-      };
-
-      x86Pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        inherit config overlays;
-      };
-
-    in
-    {
-
-      nixosConfigurations = {
-        fonix = nixos.lib.nixosSystem {
-          inherit system;
-
-          pkgs = nixosPackages;
-          modules =
-            [
-              ./nixos/fonix-vm.nix
-              disko.nixosModules.disko
-              impermanence.nixosModule
-              agenix.nixosModules.default
-              {
-                nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
-              }
-              #secrets.nixosModules.desktop or { }
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
-                home-manager.extraSpecialArgs = {
-                  pkgs = x86Pkgs;
-                };
-                home-manager.users.vampas = import ./home/users/vampas/fonix.nix;
-              }
-            ];
-        };
-
-        devShell.x86_64-linux = x86Pkgs.mkShell {
-          nativeBuildInputs = [ x86Pkgs.bashInteractive ];
-          buildInputs = with x86Pkgs; [
-            nil
-            nixpkgs-fmt
-          ];
-        };
+      devShell.x86_64-linux = x86Pkgs.mkShell {
+        nativeBuildInputs = [x86Pkgs.bashInteractive];
+        buildInputs = with x86Pkgs; [
+          nil
+          nixpkgs-fmt
+        ];
       };
     };
+  };
 }

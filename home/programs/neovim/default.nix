@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-let
-
-  treesitterWithGrammars = (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
+{pkgs, ...}: let
+  treesitterWithGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
     p.bash
     p.comment
     p.css
@@ -27,14 +25,13 @@ let
     p.typescript
     p.vue
     p.yaml
-  ]));
+  ]);
 
   treesitter-parsers = pkgs.symlinkJoin {
     name = "treesitter-parsers";
     paths = treesitterWithGrammars.dependencies;
   };
-in
-{
+in {
   home.packages = with pkgs; [
     ripgrep
     fd
@@ -75,5 +72,4 @@ in
     recursive = true;
     source = treesitterWithGrammars;
   };
-
 }

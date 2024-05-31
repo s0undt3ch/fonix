@@ -1,8 +1,6 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   username = "vampas";
-in
-{
+in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -20,7 +18,6 @@ in
       actionlint # GitHub Actions Linter, used by pre-commit hooks
       jq
     ];
-
   };
 
   imports = [

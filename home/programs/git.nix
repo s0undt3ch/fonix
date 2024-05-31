@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   programs.git = {
     enable = true;
     userName = "Pedro Algarvio";
@@ -18,7 +16,7 @@
       ".*.sw*"
     ];
     extraConfig = {
-      init = { defaultBranch = "main"; };
+      init = {defaultBranch = "main";};
     };
   };
 }

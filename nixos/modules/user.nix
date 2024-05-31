@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   users.users = {
     vampas = {
       isNormalUser = true;

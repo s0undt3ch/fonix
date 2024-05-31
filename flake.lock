@@ -225,10 +225,7 @@
     "neovim-flake": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "neovim-nightly-overlay",
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "dir": "contrib",
@@ -289,6 +286,22 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1716948383,
+        "narHash": "sha256-SzDKxseEcHR5KzPXLwsemyTR/kaM9whxeiJohbL04rs=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "ad57eef4ef0659193044870c731987a6df5cf56b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1716476497,
         "narHash": "sha256-8ejTpA9Kqb+dKSSe3IOpuhwTJX1/IWvHMTSxBV6k5NM=",
         "owner": "nixos",
@@ -334,7 +347,7 @@
         "impermanence": "impermanence",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixos": "nixos",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "plasma-manager": "plasma-manager"
       }
     },

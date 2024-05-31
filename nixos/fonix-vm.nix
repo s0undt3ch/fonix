@@ -1,14 +1,17 @@
-{ inputs, outputs, pkgs, config, ... }:
-
 {
-  imports =
-    [
-      ./hardware/fonix-vm.nix
-      ./modules/common.nix
-      ./modules/fonts.nix
-      ./modules/locale.nix
-      ./modules/vm.nix
-    ];
+  inputs,
+  outputs,
+  pkgs,
+  config,
+  ...
+}: {
+  imports = [
+    ./hardware/fonix-vm.nix
+    ./modules/common.nix
+    ./modules/fonts.nix
+    ./modules/locale.nix
+    ./modules/vm.nix
+  ];
 
   networking.hostName = "fonix";
 

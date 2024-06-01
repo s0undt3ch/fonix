@@ -17,6 +17,7 @@ in {
     packages = with pkgs; [
       actionlint # GitHub Actions Linter, used by pre-commit hooks
       jq
+      pre-commit
     ];
   };
 

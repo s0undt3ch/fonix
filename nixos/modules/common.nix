@@ -7,6 +7,7 @@
     git
     just
     home-manager
+    killall
   ];
 
   environment.shells = with pkgs; [

@@ -120,6 +120,9 @@
       };
 
       kscreenlockerrc = {
+        "Greeter/LnF/General" = {
+          showMediaControls = false;
+        };
         "Greeter/Wallpaper/org.kde.image/General" = {
           Image = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Flow";
         };

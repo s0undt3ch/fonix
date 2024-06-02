@@ -168,6 +168,7 @@
 
       kglobalshortcutsrc = {
         kwin = {
+          "Show Desktop" = null;
           "Window One Screen to the Left" = "Ctrl+Alt+Left";
           "Window One Screen to the Right" = "Ctrl+Alt+Right";
         };
@@ -216,6 +217,22 @@
       };
 
       ksmserverrc.General.loginMode = "emptySession";
+
+      dolphinrc = {
+        General = {
+          FilterBar = true;
+          RememberOpenedTabs = false;
+          ShowFullPath = true;
+          ShowFullPathInTitlebar = true;
+        };
+        MainWindow = {
+          MenuBar = "Disabled";
+          ToolBarsMovable = "Disabled";
+        };
+        DetailsMode = {
+          PreviewSize = 22;
+        };
+      };
     };
   };
 }

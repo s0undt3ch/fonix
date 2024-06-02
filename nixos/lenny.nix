@@ -93,6 +93,7 @@
     git
     just
     skanpage
+    ferdium
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

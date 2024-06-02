@@ -30,5 +30,6 @@ in
     ../../programs/gpg.nix
     ../../programs/kitty.nix
     ../../programs/plasma.nix
+    ../../programs/spotify.nix
   ];
 }

@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/release-24.05";
     nixos.url = "github:nixos/nixpkgs/release-24.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
 
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,6 +55,7 @@
       agenix,
       impermanence,
       disko,
+      spicetify-nix,
       ...
     }@inputs:
     let

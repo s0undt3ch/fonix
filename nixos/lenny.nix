@@ -94,6 +94,7 @@
     just
     skanpage
     ferdium
+    kdePackages.kio-extras
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

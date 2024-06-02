@@ -5,7 +5,8 @@
   config,
   nixpkgs,
   ...
-}: {
+}:
+{
   nix = {
     package = pkgs.nixVersions.latest;
     gc = {
@@ -14,9 +15,7 @@
       options = "--delete-older-than 10d";
     };
     extraOptions =
-      /*
-      toml
-      */
+      # toml
       ''
         bash-prompt = "\[nix-develop\]$ ";
         experimental-features = nix-command flakes
@@ -31,9 +30,7 @@
         "https://nix-community.cachix.org"
         "https://cache.nixos.org/"
       ];
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
+      trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
     };
   };
 

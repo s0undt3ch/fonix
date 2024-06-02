@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   tmux-shared-windows = pkgs.writeShellScriptBin "tmux-shared-windows" ''
     tmux start-server 2> /dev/null
     sleep 1
@@ -7,7 +8,8 @@
     tmux split-window -v -d -l 25%
     tmux attach-session -t $(whoami)
   '';
-in {
+in
+{
   programs.tmux = {
     enable = true;
     # Start numbering windows and panes at 1 not 0
@@ -97,7 +99,5 @@ in {
     '';
   };
 
-  home.packages = [
-    tmux-shared-windows
-  ];
+  home.packages = [ tmux-shared-windows ];
 }

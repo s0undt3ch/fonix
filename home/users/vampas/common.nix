@@ -1,6 +1,8 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   username = "vampas";
-in {
+in
+{
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -12,7 +14,7 @@ in {
     homeDirectory = "/home/${username}";
     sessionVariables = {
       EDITOR = "nvim";
-      NIX_PATH = "nixpkgs=flake:nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
+      NIX_PATH = "nixpkgs=flake:nixpkgs\${NIX_PATH:+:$NIX_PATH}";
     };
     packages = with pkgs; [
       actionlint # GitHub Actions Linter, used by pre-commit hooks

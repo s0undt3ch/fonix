@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -12,15 +13,11 @@
 
     ohMyZsh = {
       enable = true;
-      plugins = [
-        "starship"
-      ];
+      plugins = [ "starship" ];
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    starship
-  ];
+  environment.systemPackages = with pkgs; [ starship ];
 
   programs.starship = {
     enable = true;
@@ -35,8 +32,6 @@
     #      golang = { format = "[$symbol($version )]($style)"; };
     #      format = "$username$directory$git_branch$golang$rust$nix_shell$character";
     #    };
-    presets = [
-      "gruvbox-rainbow"
-    ];
+    presets = [ "gruvbox-rainbow" ];
   };
 }

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.plasma = {
     enable = true;
 
@@ -17,7 +18,12 @@
       virtualDesktops = {
         rows = 2;
         number = 4;
-        names = ["Desktop 1" "Desktop 2" "Desktop 3" "Desktop 4"];
+        names = [
+          "Desktop 1"
+          "Desktop 2"
+          "Desktop 3"
+          "Desktop 4"
+        ];
       };
     };
 
@@ -81,9 +87,7 @@
                 #      "org.kde.plasma.battery"
                 #      "org.kde.plasma.bluetooth"
                 #    ];
-                hidden = [
-                  "kde.plasma.brightness"
-                ];
+                hidden = [ "kde.plasma.brightness" ];
                 configs = {
                   battery.showPercentage = true;
                 };

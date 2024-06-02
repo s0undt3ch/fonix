@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   users.users = {
     vampas = {
       isNormalUser = true;
@@ -15,8 +16,7 @@
         "networkmanager"
         "mlocate"
       ];
-      packages = [
-      ];
+      packages = [ ];
     };
   };
 }

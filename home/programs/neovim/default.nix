@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   treesitterWithGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
     p.bash
     p.comment
@@ -31,7 +32,8 @@
     name = "treesitter-parsers";
     paths = treesitterWithGrammars.dependencies;
   };
-in {
+in
+{
   home.packages = with pkgs; [
     ripgrep
     fd
@@ -50,9 +52,7 @@ in {
     coc.enable = false;
     withNodeJs = true;
 
-    plugins = [
-      treesitterWithGrammars
-    ];
+    plugins = [ treesitterWithGrammars ];
   };
 
   home.file."./.config/nvim/" = {

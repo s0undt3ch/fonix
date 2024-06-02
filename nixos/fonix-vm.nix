@@ -4,7 +4,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware/fonix-vm.nix
     ./modules/common.nix
@@ -31,9 +32,7 @@
     xkb.variant = "";
   };
 
-  environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    kate
-  ];
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [ kate ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

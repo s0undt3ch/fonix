@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
+
+  home.packages = [ inputs.plasma-manager.packages.${pkgs.system}.rc2nix ];
+
   programs.plasma = {
     enable = true;
 
@@ -109,37 +112,55 @@
     # Some low-level settings:
     #
     configFile = {
-      baloofilerc."Basic Settings"."Indexing-Enabled" = false;
-      # kwinrc."org.kde.kdecoration2".ButtonsOnLeft = "SF";
-      # kwinrc.Desktops.Number = {
-      #  value = 8;
-      #  # Forces kde to not change this value (even through the settings app).
-      #  immutable = true;
-      # };
-      #kscreenlockerrc = {
-      #  Greeter.WallpaperPlugin = "org.kde.potd";
-      #  # To use nested groups use / as a separator. In the below example,
-      #  # Provider will be added to [Greeter][Wallpaper][org.kde.potd][General].
-      #  "Greeter/Wallpaper/org.kde.potd/General".Provider = "bing";
-      #};
-      kxkbrc."Layout" = {
-        "DisplayNames" = ",";
-        "LayoutList" = "us,pt";
-        "Options" = "grp:shifts_toggle";
-        "ResetOldOptions" = true;
-        "Use" = true;
-        "VariantList" = ",";
+
+      baloofilerc = {
+        "Basic Settings" = {
+          "Indexing-Enabled" = false;
+        };
+      };
+
+      kscreenlockerrc = {
+        "Greeter/Wallpaper/org.kde.image/General" = {
+          Image = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Flow";
+        };
+      };
+
+      kxkbrc = {
+        Layout = {
+          "DisplayNames" = ",";
+          "LayoutList" = "us,pt";
+          "Options" = "grp:shifts_toggle";
+          "ResetOldOptions" = true;
+          "Use" = true;
+          "VariantList" = ",";
+        };
       };
       kcminputrc = {
         "Keyboard"."NumLock" = 0;
       };
 
       kwinrc = {
-        "NightColor"."Active".value = true;
-        "NightColor"."Mode".value = "Location";
-        "NightColor"."LatitudeAuto".value = 38.9;
-        "NightColor"."LongitudeFixed".value = -9.03;
-        "NightColor"."NightTemperature".value = 4400;
+        Desktops = {
+          Number = {
+            value = 4;
+            # Forces kde to not change this value (even through the settings app).
+            immutable = true;
+          };
+          Rows = {
+            value = 2;
+            immutable = true;
+          };
+        };
+        NightColor = {
+          Active = true;
+          Mode = "Location";
+          LatitudeAuto = 38.9;
+          LongitudeFixed = -9.03;
+          NightTemperature = 4400;
+        };
+        Xwayland = {
+          Scale = 2.25;
+        };
       };
 
       kglobalshortcutsrc = {
@@ -175,6 +196,23 @@
           PowerProfile = "power-saver";
         };
       };
+
+      kdeglobals = {
+        KDE = {
+          widgetStyle = "Breeze";
+          LookAndFeelPackage = "org.kde.breezedark.desktop";
+          SingleClick = false;
+        };
+        General = {
+          TerminalApplication = "kitty";
+          TerminalService = "kitty.desktop";
+          XftAntialias = true;
+          XftHintStyle = "hintfull";
+          XftSubPixel = "rgb";
+        };
+      };
+
+      ksmserverrc.General.loginMode = "emptySession";
     };
   };
 }

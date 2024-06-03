@@ -42,6 +42,7 @@ in
     black
     gcc
     gnumake
+    neovim-qt
   ];
 
   programs.neovim = {

@@ -94,6 +94,7 @@
     just
     skanpage
     ferdium
+    smbnetfs
     kdePackages.kio-extras
   ];
 

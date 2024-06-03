@@ -8,12 +8,17 @@
     just
     home-manager
     killall
+    nfs-utils
   ];
 
   environment.shells = with pkgs; [
     bash
     zsh
   ];
+
+  # To lock NFS share mounts
+  boot.supportedFilesystems = [ "nfs" ];
+  services.rpcbind.enable = true;
 
   # Enable 'locate foo' service
   services.locate = {

@@ -43,6 +43,7 @@ in
     gcc
     gnumake
     neovim-qt
+    xclip
   ];
 
   programs.neovim = {

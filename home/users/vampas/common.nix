@@ -31,5 +31,6 @@ in
     ../../programs/kitty.nix
     ../../programs/plasma.nix
     ../../programs/spotify.nix
+    ../../programs/github.nix
   ];
 }

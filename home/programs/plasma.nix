@@ -31,6 +31,7 @@
     };
 
     shortcuts = {
+      "spotify.desktop"."_launch" = "Meta+S";
       "ferdium.desktop"."_launch" = "Meta+Shift+F";
       "firefox.desktop"."_launch" = "Meta+F";
       "kitty.desktop"."_launch" = "Meta+T";

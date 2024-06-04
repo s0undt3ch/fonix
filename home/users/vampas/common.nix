@@ -23,6 +23,11 @@ in
     ];
   };
 
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   imports = [
     ../../programs/git.nix
     ../../programs/tmux.nix

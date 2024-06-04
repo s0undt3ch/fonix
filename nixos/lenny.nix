@@ -120,6 +120,7 @@
     skanpage
     ferdium
     smbnetfs
+    kdePackages.sddm-kcm
     kdePackages.kio-extras
   ];
 

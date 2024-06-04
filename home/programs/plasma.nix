@@ -31,11 +31,14 @@
     };
 
     shortcuts = {
-      "spotify.desktop"."_launch" = "Meta+S";
       "ferdium.desktop"."_launch" = "Meta+Shift+F";
       "firefox.desktop"."_launch" = "Meta+F";
       "kitty.desktop"."_launch" = "Meta+T";
       "org.kde.dolphin.desktop"."_launch" = "Meta+D";
+      "plasmashell" = {
+        "stop current activity" = ""; # So that I can assign Meta+S to spotify
+      };
+      "spotify.desktop"."_launch" = "Meta+S";
     };
 
     panels = [
@@ -101,8 +104,19 @@
           }
           {
             digitalClock = {
-              calendar.firstDayOfWeek = "monday";
-              time.format = "24h";
+              calendar = {
+                firstDayOfWeek = "monday";
+                plugins = [ "holidaysevents" ];
+              };
+              time = {
+                format = "24h";
+                showSeconds = "onlyInTooltip";
+              };
+              date = {
+                enable = true;
+                format = "isoDate";
+                position = "belowTime";
+              };
             };
           }
         ];
@@ -233,6 +247,9 @@
         };
         DetailsMode = {
           PreviewSize = 22;
+        };
+        "KFileDialog Settings" = {
+          "Places Icons Auto-resize" = true;
         };
       };
     };

@@ -9,6 +9,7 @@
     ./modules/common.nix
     ./modules/fonts.nix
     ./modules/locale.nix
+    ./modules/antivirus.nix
   ];
 
   # Bootloader.

@@ -3,6 +3,9 @@
   # Vim should be the default editor
   programs.vim.defaultEditor = true;
 
+  # So that GTK apps look properly under KDE
+  programs.dconf.enable = true;
+
   environment.systemPackages = with pkgs; [
     git
     just

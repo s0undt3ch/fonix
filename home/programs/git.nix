@@ -33,6 +33,8 @@
       #  pager = "cat";
       #  diff = "less -FX";
       #};
+      color.ui = true;
+      github.user = "s0undt3ch";
       grep = {
         linenumber = true;
       };
@@ -40,6 +42,7 @@
         defaultBranch = "main";
       };
     };
+    delta.enable = true;
   };
 
   programs.gitui.enable = true;

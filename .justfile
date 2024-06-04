@@ -12,5 +12,9 @@ update-system hostname=`hostname`:
     sudo nixos-rebuild --flake .#{{hostname}} switch
   fi
 
+update-flakes:
+  #!/usr/bin/env sh
+  cd {{justfile_directory()}}
+  nix flake update
 clean:
   nix-collect-garbage -d

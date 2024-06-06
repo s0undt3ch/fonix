@@ -18,11 +18,10 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    #neovim-nightly-overlay = {
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #  url = "github:nix-community/neovim-nightly-overlay";
-    #  inputs.neovim-flake.url = "github:neovim/neovim?dir=contrib&rev=8744ee8783a8597f9fce4a573ae05aca2f412120";
-    #};
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.neovim-src.url = "github:neovim/neovim?dir=contrib&branch=release-0.10";
+    };
 
     agenix = {
       inputs.nixpkgs.follows = "nixpkgs";

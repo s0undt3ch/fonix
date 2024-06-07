@@ -29,10 +29,6 @@
       '';
     };
     extraConfig = {
-      #core = {
-      #  pager = "cat";
-      #  diff = "less -FX";
-      #};
       color.ui = true;
       github.user = "s0undt3ch";
       grep = {
@@ -42,7 +38,7 @@
         defaultBranch = "main";
       };
     };
-    delta.enable = true;
+    difftastic.enable = true;
   };
 
   programs.gitui.enable = true;

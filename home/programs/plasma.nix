@@ -229,6 +229,12 @@
           XftAntialias = true;
           XftHintStyle = "hintfull";
           XftSubPixel = "rgb";
+          # Fonts
+          fixed = "EnvyCodeR Nerd Font Mono,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
+          font = "Sans Serif,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
+          menuFont = "Sans Serif,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
+          smallestReadableFont = "Sans Serif,8,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
+          toolBarFont = "Sans Serif,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
         };
       };
 

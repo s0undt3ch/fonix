@@ -32,7 +32,6 @@ in
       # tmuxPlugins.sensible
       tmuxPlugins.copycat
       tmuxPlugins.resurrect
-      tmuxPlugins.gruvbox
     ];
 
     extraConfig = ''
@@ -87,8 +86,8 @@ in
       #set -g @plugin 'seebi/tmux-colors-solarized'
       #set -g @colors-solarized '256'
 
-      set -g @plugin 'egel/tmux-gruvbox'
-      set -g @tmux-gruvbox 'dark' # or 'light'
+      #set -g @plugin 'egel/tmux-gruvbox'
+      #set -g @tmux-gruvbox 'dark' # or 'light'
 
       # Install TPM if not installed already
       if "test ! -d ~/.tmux/plugins/tpm" \
@@ -97,6 +96,11 @@ in
       # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
       run -b '~/.tmux/plugins/tpm/tpm'
     '';
+
+    catppuccin = {
+      enable = true;
+      flavor = "mocha";
+    };
   };
 
   home.packages = [ tmux-shared-windows ];

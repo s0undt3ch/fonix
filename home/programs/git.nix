@@ -41,5 +41,11 @@
     difftastic.enable = true;
   };
 
-  programs.gitui.enable = true;
+  programs.gitui = {
+    enable = true;
+    catppuccin = {
+      enable = true;
+      flavor = "mocha";
+    };
+  };
 }

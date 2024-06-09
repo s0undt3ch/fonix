@@ -6,6 +6,7 @@
     nixos.url = "github:nixos/nixpkgs/release-24.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
+    catppuccin.url = "github:catppuccin/nix";
 
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,6 +56,7 @@
       impermanence,
       disko,
       spicetify-nix,
+      catppuccin,
       ...
     }@inputs:
     let
@@ -109,11 +111,15 @@
             agenix.nixosModules.default
             { nix.nixPath = [ "nixpkgs=flake:nixpkgs" ]; }
             #secrets.nixosModules.desktop or { }
+            catppuccin.nixosModules.catppuccin
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+              home-manager.sharedModules = [
+                catppuccin.homeManagerModules.catppuccin
+                plasma-manager.homeManagerModules.plasma-manager
+              ];
               home-manager.extraSpecialArgs = {
                 inherit inputs;
                 pkgs = x86Pkgs;

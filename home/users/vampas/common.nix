@@ -37,5 +37,7 @@ in
     ../../programs/plasma.nix
     ../../programs/spotify.nix
     ../../programs/github.nix
+    ../../programs/starship.nix
+    ../../programs/catppuccin.nix
   ];
 }

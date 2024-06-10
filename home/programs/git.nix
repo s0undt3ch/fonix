@@ -1,5 +1,9 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    git-doc
+    gitg
+  ];
   programs.git = {
     enable = true;
     userName = "Pedro Algarvio";

@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/release-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos.url = "github:nixos/nixpkgs/release-24.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
@@ -48,6 +49,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       nixos,
       nixos-hardware,
       home-manager,
@@ -94,6 +96,8 @@
         system = "x86_64-linux";
         inherit config overlays;
       };
+
+      pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
     in
     {
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
@@ -123,10 +127,14 @@
               home-manager.extraSpecialArgs = {
                 inherit inputs;
                 pkgs = x86Pkgs;
+                inherit pkgs-unstable;
               };
               home-manager.users.vampas = import ./home/users/vampas/fonix.nix;
             }
           ];
+          specialArgs = {
+            inherit pkgs-unstable;
+          };
         };
 
         fonix = nixos.lib.nixosSystem {

@@ -21,6 +21,7 @@ in
       jq
       pre-commit
       git-doc
+      python3
     ];
   };
 

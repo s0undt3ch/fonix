@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
   home.packages = with pkgs; [
     git-doc
@@ -47,6 +47,7 @@
 
   programs.gitui = {
     enable = true;
+    package = pkgs-unstable.gitui;
     catppuccin = {
       enable = true;
       flavor = "mocha";

@@ -1,102 +1,123 @@
 {
   inputs,
-  config,
   lib,
   pkgs,
   ...
 }:
-with lib;
-{
+let
+  treesitterWithGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
+    p.bash
+    p.comment
+    p.css
+    p.dockerfile
+    p.fish
+    p.gitattributes
+    p.gitignore
+    p.go
+    p.gomod
+    p.gowork
+    p.hcl
+    p.javascript
+    p.jq
+    p.json5
+    p.json
+    p.lua
+    p.make
+    p.markdown
+    p.nix
+    p.python
+    p.rust
+    p.toml
+    p.typescript
+    p.vue
+    p.yaml
+  ]);
 
+  treesitter-parsers = pkgs.symlinkJoin {
+    name = "treesitter-parsers";
+    paths = treesitterWithGrammars.dependencies;
+  };
+in
+{
+  programs.lazygit = {
+    enable = true;
+  };
   programs.neovim = {
     enable = true;
     package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
-    extraPackages = with pkgs; [
-      # LazyVim
-      lua-language-server
-      stylua
-      # Telescope
-      ripgrep
+    viAlias = true;
+    vimAlias = true;
+    coc.enable = false;
+    withNodeJs = true;
 
+    extraPackages = with pkgs; [
+      ripgrep
       fd
+      lua-language-server
       rust-analyzer-unwrapped
       black
       xclip
+      stylua
+      marksman
+      markdownlint-cli
     ];
 
-    plugins = with pkgs.vimPlugins; [ lazy-nvim ];
+    plugins = with pkgs.vimPlugins; [
+      lazy-nvim
+      treesitterWithGrammars
+    ];
 
     extraLuaConfig =
       let
         plugins = with pkgs.vimPlugins; [
           # LazyVim
           LazyVim
+          treesitterWithGrammars
           bufferline-nvim
           cmp-buffer
           cmp-nvim-lsp
           cmp-path
-          cmp_luasnip
           conform-nvim
-          dashboard-nvim
+          crates-nvim
           dressing-nvim
           flash-nvim
           friendly-snippets
           gitsigns-nvim
+          headlines-nvim
           indent-blankline-nvim
+          lazygit-nvim
           lualine-nvim
+          markdown-preview-nvim
           neo-tree-nvim
-          neoconf-nvim
-          neodev-nvim
           noice-nvim
           nui-nvim
           nvim-cmp
+          nvim-config-local
           nvim-lint
           nvim-lspconfig
           nvim-notify
           nvim-spectre
-          nvim-treesitter-parsers.regex
-          nvim-treesitter-parsers.bash
-          nvim-treesitter-parsers.markdown
-          nvim-treesitter-parsers.markdown_inline
-          nvim-treesitter.withAllGrammars
-          nvim-treesitter-context
-          nvim-treesitter-textobjects
-          nvim-ts-autotag
-          nvim-ts-context-commentstring
           nvim-web-devicons
           persistence-nvim
           plenary-nvim
+          rustaceanvim
+          SchemaStore-nvim
+          semshi
+          #solarized-osaka-nvim
           telescope-fzf-native-nvim
           telescope-nvim
+          #telescope-terraform
+          #telescope-terraform-doc
           todo-comments-nvim
           tokyonight-nvim
+          trim-nvim
           trouble-nvim
           vim-illuminate
           vim-startuptime
-          which-key-nvim
           vim-tmux-navigator
-          {
-            name = "LuaSnip";
-            path = luasnip;
-          }
-          {
-            name = "catppuccin";
-            path = catppuccin-nvim;
-          }
-          {
-            name = "mini.ai";
-            path = mini-nvim;
-          }
+          which-key-nvim
           {
             name = "mini.bufremove";
-            path = mini-nvim;
-          }
-          {
-            name = "mini.comment";
-            path = mini-nvim;
-          }
-          {
-            name = "mini.indentscope";
             path = mini-nvim;
           }
           {
@@ -104,8 +125,8 @@ with lib;
             path = mini-nvim;
           }
           {
-            name = "mini.surround";
-            path = mini-nvim;
+            name = "catppuccin";
+            path = catppuccin-nvim;
           }
         ];
         mkEntryFromDrv =
@@ -120,78 +141,93 @@ with lib;
         lazyPath = pkgs.linkFarm "lazy-plugins" (builtins.map mkEntryFromDrv plugins);
       in
       ''
-        -- Set <space> as the leader key
-        -- See `:help mapleader`
-        --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-        vim.g.mapleader = " "
-        vim.g.maplocalleader = " "
+                -- bootstrap lazy.nvim, LazyVim and your plugins
 
-        require("lazy").setup({
-          defaults = {
-            lazy = true,
-          },
-          dev = {
-            -- reuse files from pkgs.vimPlugins.*
-            path = "${lazyPath}",
-            patterns = { "." },
-            -- fallback to download
-            fallback = true,
-          },
-          spec = {
-            { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-            -- The following configs are needed for fixing lazyvim on nix
-            -- force enable telescope-fzf-native.nvim
-            { "nvim-telescope/telescope-fzf-native.nvim", enabled = true },
-            -- disable mason.nvim, use programs.neovim.extraPackages
-            { "williamboman/mason-lspconfig.nvim", enabled = false },
-            { "williamboman/mason.nvim", enabled = false },
-            -- import/override with your plugins
-            { import = "plugins" },
-            -- treesitter handled by xdg.configFile."nvim/parser", put this line at the end of spec to clear ensure_installed
-            { "nvim-treesitter/nvim-treesitter", opts = { ensure_installed = {} } },
-          },
-        })
+                -- Set <space> as the leader key
+                -- See `:help mapleader`
+                --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+                vim.g.mapleader = " "
+                vim.g.maplocalleader = " "
+
+                local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+                if not vim.loop.fs_stat(lazypath) then
+                  -- bootstrap lazy.nvim
+                  -- stylua: ignore
+                vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
+                end
+                vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+
+                vim.opt.runtimepath:append("${treesitter-parsers}")
+                -- vim.api.nvim_command("colorscheme catppuccin")
+
+                require("lazy").setup({
+                  spec = {
+                    -- add LazyVim and import its plugins
+                    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+                    -- The following configs are needed for fixing lazyvim on nix
+                    -- force enable telescope-fzf-native.nvim
+                    { "nvim-telescope/telescope-fzf-native.nvim", enabled = true },
+                    -- disable mason.nvim, use programs.neovim.extraPackages
+                    { "williamboman/mason-lspconfig.nvim", enabled = false },
+                    { "williamboman/mason.nvim", enabled = false },
+                    -- import/override with your plugins
+                    { import = "plugins" },
+                    -- treesitter handled by xdg.configFile."nvim/parser", put this line at the end of spec to clear ensure_installed
+                    {
+        	      "nvim-treesitter/nvim-treesitter",
+        	      opts = { ensure_installed = {} },
+        	      pin = true -- don't include in updates
+        	    },
+                    -- import any extras modules here
+                    -- import/override with your plugins
+                    { import = "plugins" },
+                  },
+                  defaults = {
+                    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
+                    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
+                    lazy = false,
+                    -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
+                    -- have outdated releases, which may break your Neovim install.
+                    version = false, -- always use the latest git commit
+                    -- version = "*", -- try installing the latest stable version for plugins that support semver
+                  },
+                  dev = {
+                    -- reuse files from pkgs.vimPlugins.*
+                    path = "${lazyPath}",
+                    patterns = { "." },
+                    -- fallback to download
+                    fallback = true,
+                  },
+                  -- install = { colorscheme = { "tokyonight", "habamax" } },
+                  checker = { enabled = true }, -- automatically check for plugin updates
+                  performance = {
+                    rtp = {
+                      -- disable some rtp plugins
+                      disabled_plugins = {
+                        "gzip",
+                        -- "matchit",
+                        -- "matchparen",
+                        -- "netrwPlugin",
+                        "tarPlugin",
+                        "tohtml",
+                        "tutor",
+                        "zipPlugin",
+                      },
+                    },
+                  },
+                })
       '';
   };
 
-  # https://github.com/nvim-treesitter/nvim-treesitter#i-get-query-error-invalid-node-type-at-position
-  xdg.configFile."nvim/parser".source =
-    let
-      parsers = pkgs.symlinkJoin {
-        name = "treesitter-parsers";
-        paths =
-          (pkgs.vimPlugins.nvim-treesitter.withPlugins (
-            plugins: with plugins; [
-              bash
-              comment
-              css
-              dockerfile
-              gitattributes
-              gitignore
-              go
-              gomod
-              gowork
-              hcl
-              javascript
-              jq
-              json5
-              json
-              lua
-              make
-              markdown
-              nix
-              python
-              rust
-              toml
-              typescript
-              vue
-              yaml
-            ]
-          )).dependencies;
-      };
-    in
-    "${parsers}/parser";
+  home.file."./.config/nvim/" = {
+    source = ./nvim;
+    recursive = true;
+  };
 
-  # Normal LazyVim config here, see https://github.com/LazyVim/starter/tree/main/lua
-  xdg.configFile."nvim/lua".source = ./lua;
+  # Treesitter is configured as a locally developed module in lazy.nvim
+  # we hardcode a symlink here so that we can refer to it in our lazy config
+  home.file."./.local/share/nvim/nix/nvim-treesitter/" = {
+    recursive = true;
+    source = treesitterWithGrammars;
+  };
 }

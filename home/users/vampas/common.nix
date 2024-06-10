@@ -20,6 +20,7 @@ in
       actionlint # GitHub Actions Linter, used by pre-commit hooks
       jq
       pre-commit
+      git-doc
     ];
   };
 

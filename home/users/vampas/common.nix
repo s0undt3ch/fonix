@@ -22,6 +22,7 @@ in
       pre-commit
       git-doc
       python3
+      ripgrep
     ];
   };
 

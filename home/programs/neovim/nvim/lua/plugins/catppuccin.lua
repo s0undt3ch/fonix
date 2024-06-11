@@ -1,6 +1,7 @@
 return {
   "catppuccin/nvim",
   lazy = false,
+  priority = 1000,
   init = function()
     local compile_path = vim.fn.stdpath("cache") .. "/catppuccin-nvim"
     vim.fn.mkdir(compile_path, "p")
@@ -11,7 +12,8 @@ return {
       flavour = "mocha",
       term_colors = true,
     })
-
-    vim.api.nvim_command("colorscheme catppuccin-mocha")
+  end,
+  config = function ()
+    vim.cmd([[colorscheme catppuccin-mocha]])
   end,
 }

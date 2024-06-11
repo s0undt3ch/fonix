@@ -65,16 +65,28 @@
           {
             name = "org.kde.plasma.taskmanager";
             config = {
-              General.launchers = [
-                # "applications:org.kde.dolphin.desktop"
-                # "applications:org.kde.konsole.desktop"
-              ];
+              General = {
+                groupingStrategy = "0";
+                launchers = [
+                  # "applications:org.kde.dolphin.desktop"
+                  # "applications:org.kde.konsole.desktop"
+                ];
+              };
             };
           }
           # If no configuration is needed, specifying only the name of the
           # widget will add them with the default configuration.
           "org.kde.plasma.marginsseparator"
-          "org.kde.plasma.pager"
+          {
+            name = "org.kde.plasma.pager";
+            config = {
+              General = {
+                currentDesktopSelected = "ShowDesktop";
+                showOnlyCurrentScreen = "true";
+                showWindowIcons = "true";
+              };
+            };
+          }
           # If you need configuration for your widget, instead of specifying the
           # the keys and values directly using the config attribute as shown
           # above, plasma-manager also provides some higher-level interfaces for
@@ -95,7 +107,7 @@
                 #      "org.kde.plasma.battery"
                 #      "org.kde.plasma.bluetooth"
                 #    ];
-                hidden = [ "kde.plasma.brightness" ];
+                hidden = [ "org.kde.plasma.brightness" ];
                 configs = {
                   battery.showPercentage = true;
                 };

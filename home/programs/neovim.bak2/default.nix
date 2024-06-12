@@ -75,6 +75,8 @@ with lib;
           vim-startuptime
           which-key-nvim
           vim-tmux-navigator
+          trim-nvim
+          nvim-config-local
           {
             name = "LuaSnip";
             path = luasnip;

@@ -23,6 +23,8 @@ in
       git-doc
       python3
       ripgrep
+      ruff
+      black
     ];
   };
 

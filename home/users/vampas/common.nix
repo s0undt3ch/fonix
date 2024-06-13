@@ -25,6 +25,7 @@ in
       ripgrep
       ruff
       black
+      stylua
     ];
   };
 

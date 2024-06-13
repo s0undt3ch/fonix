@@ -75,13 +75,13 @@ with lib;
           nvim-notify
           nvim-snippets
           nvim-spectre
-          nvim-treesitter
+          #nvim-treesitter
           #nvim-treesitter-parsers.bash
           #nvim-treesitter-parsers.markdown
           #nvim-treesitter-parsers.markdown_inline
           #nvim-treesitter-parsers.regex
+          #nvim-treesitter.withAllGrammars
           nvim-treesitter-textobjects
-          nvim-treesitter.withAllGrammars
           nvim-ts-autotag
           nvim-ts-context-commentstring
           nvim-web-devicons
@@ -128,6 +128,7 @@ with lib;
             drv;
         lazyPath = pkgs-unstable.linkFarm "lazy-plugins" (builtins.map mkEntryFromDrv plugins);
       in
+      # lua
       ''
         -- bootstrap lazy.nvim, LazyVim and your plugins
 
@@ -155,16 +156,17 @@ with lib;
             -- disable mason.nvim, use programs.neovim.extraPackages
             { "williamboman/mason-lspconfig.nvim", enabled = false },
             { "williamboman/mason.nvim", enabled = false },
+            -- import any extras modules here
+            { import = "lazyvim.plugins.extras.lang.python" },
+            -- import/override with your plugins
+            { import = "plugins" },
+            -- put this line at the end of spec to clear ensure_installed
             {
               -- treesitter is handled by nix
               "nvim-treesitter/nvim-treesitter",
               opts = { ensure_installed = {} },
               pin = true -- don't include in updates
             },
-            -- import any extras modules here
-            { import = "lazyvim.plugins.extras.lang.python" },
-            -- import/override with your plugins
-            { import = "plugins" },
           },
           defaults = {
             -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.

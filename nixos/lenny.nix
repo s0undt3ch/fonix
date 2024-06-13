@@ -122,6 +122,7 @@
     smbnetfs
     kdePackages.sddm-kcm
     kdePackages.kio-extras
+    kdePackages.kcalc
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

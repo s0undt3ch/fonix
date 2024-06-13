@@ -5,7 +5,14 @@
   pkgs-unstable,
   ...
 }:
-with lib;
+let
+  treesitterPath = pkgs-unstable.symlinkJoin {
+    name = "lazyvim-nix-treesitter-parsers";
+    paths = pkgs-unstable.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+  };
+
+  pluginPath = import ./plugins.nix { inherit pkgs-unstable lib inputs; };
+in
 {
   programs.lazygit = {
     enable = true;
@@ -35,99 +42,7 @@ with lib;
       python3
     ];
 
-    plugins = with pkgs-unstable.vimPlugins; [
-      lazy-nvim
-      nvim-treesitter
-      nvim-treesitter.withAllGrammars
-      nvim-treesitter-textobjects
-    ];
-
     extraLuaConfig =
-      let
-        plugins = with pkgs-unstable.vimPlugins; [
-          bufferline-nvim
-          cmp-buffer
-          cmp-nvim-lsp
-          cmp-path
-          conform-nvim
-          crates-nvim
-          dashboard-nvim
-          dressing-nvim
-          flash-nvim
-          friendly-snippets
-          gitsigns-nvim
-          headlines-nvim
-          indent-blankline-nvim
-          lazy-nvim
-          lazygit-nvim
-          LazyVim
-          lualine-nvim
-          markdown-preview-nvim
-          neo-tree-nvim
-          neoconf-nvim
-          neodev-nvim
-          noice-nvim
-          nui-nvim
-          nvim-cmp
-          nvim-config-local
-          nvim-lint
-          nvim-lspconfig
-          nvim-notify
-          nvim-snippets
-          nvim-spectre
-          #nvim-treesitter
-          #nvim-treesitter-parsers.bash
-          #nvim-treesitter-parsers.markdown
-          #nvim-treesitter-parsers.markdown_inline
-          #nvim-treesitter-parsers.regex
-          #nvim-treesitter.withAllGrammars
-          nvim-treesitter-textobjects
-          nvim-ts-autotag
-          nvim-ts-context-commentstring
-          nvim-web-devicons
-          persistence-nvim
-          plenary-nvim
-          rustaceanvim
-          SchemaStore-nvim
-          semshi
-          telescope-fzf-native-nvim
-          telescope-nvim
-          todo-comments-nvim
-          tokyonight-nvim
-          trim-nvim
-          trouble-nvim
-          ts-comments-nvim
-          vim-startuptime
-          vim-tmux-navigator
-          which-key-nvim
-          {
-            name = "mini.ai";
-            path = mini-nvim;
-          }
-          {
-            name = "mini.bufremove";
-            path = mini-nvim;
-          }
-          {
-            name = "mini.pairs";
-            path = mini-nvim;
-          }
-          {
-            name = "catppuccin";
-            path = catppuccin-nvim;
-          }
-        ];
-        mkEntryFromDrv =
-          drv:
-          if lib.isDerivation drv then
-            {
-              name = "${lib.getName drv}";
-              path = drv;
-            }
-          else
-            drv;
-        lazyPath = pkgs-unstable.linkFarm "lazy-plugins" (builtins.map mkEntryFromDrv plugins);
-      in
       # lua
       ''
         -- bootstrap lazy.nvim, LazyVim and your plugins
@@ -162,9 +77,15 @@ with lib;
             { import = "plugins" },
             -- put this line at the end of spec to clear ensure_installed
             {
-              -- treesitter is handled by nix
               "nvim-treesitter/nvim-treesitter",
-              opts = { ensure_installed = {} },
+              init = function()
+                -- Put treesitter path as first entry in rtp
+                vim.opt.rtp:prepend("${treesitterPath}")
+              end,
+              opts = {
+                auto_install = false,
+                ensure_installed = {},
+              },
               pin = true -- don't include in updates
             },
           },
@@ -179,7 +100,7 @@ with lib;
           },
           dev = {
             -- reuse files from pkgs.vimPlugins.*
-            path = "${lazyPath}",
+            path = "${pluginPath}",
             patterns = { "." },
             -- fallback to download
             fallback = true,
@@ -187,13 +108,16 @@ with lib;
           -- install = { colorscheme = { "tokyonight", "habamax" } },
           checker = { enabled = true }, -- automatically check for plugin updates
           performance = {
+            paths = {
+              "${./nvim/lua/config}",
+            },
             rtp = {
               -- disable some rtp plugins
               disabled_plugins = {
                 "gzip",
-                -- "matchit",
-                -- "matchparen",
-                -- "netrwPlugin",
+                "matchit",
+                "matchparen",
+                "netrwPlugin",
                 "tarPlugin",
                 "tohtml",
                 "tutor",
@@ -204,7 +128,6 @@ with lib;
         })
 
         vim.g.autoformat = false
-        -- vim.g.python3_host_prog = "${pkgs.python3}/bin/python"
       '';
   };
 

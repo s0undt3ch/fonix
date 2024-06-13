@@ -43,6 +43,12 @@
     #  inputs.nixpkgs.follows = "nixpkgs";
     #  url = "git+ssh://git@github.com/s0undt3ch/agenix-secrets.git?ref=main";
     #};
+
+    # NVim plugins from GitHub which are not yet packaged
+    venv-selector-nvim = {
+      url = "github:linux-cultist/venv-selector.nvim";
+      flake = false;
+    };
   };
 
   outputs =

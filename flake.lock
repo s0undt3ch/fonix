@@ -475,7 +475,8 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "plasma-manager": "plasma-manager",
-        "spicetify-nix": "spicetify-nix"
+        "spicetify-nix": "spicetify-nix",
+        "venv-selector-nvim": "venv-selector-nvim"
       }
     },
     "spicetify-nix": {
@@ -524,6 +525,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "venv-selector-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717640972,
+        "narHash": "sha256-xnyiUMeSP/wSX6ZsgTjIyOSAYJsUROSHzHztmt8R2QI=",
+        "owner": "linux-cultist",
+        "repo": "venv-selector.nvim",
+        "rev": "f16c25bf16ac6e8bbdbcc9e9b3a1a00729d00c99",
+        "type": "github"
+      },
+      "original": {
+        "owner": "linux-cultist",
+        "repo": "venv-selector.nvim",
         "type": "github"
       }
     }

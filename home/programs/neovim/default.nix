@@ -38,7 +38,7 @@ in
       markdownlint-cli
       vscode-langservers-extracted
       ruff-lsp
-      pyright
+      basedpyright
       python3
     ];
 

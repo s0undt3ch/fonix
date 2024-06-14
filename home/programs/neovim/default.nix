@@ -28,18 +28,30 @@ in
     extraPython3Packages = ps: [ ];
 
     extraPackages = with pkgs-unstable; [
-      ripgrep
       fd
-      lua-language-server
-      rust-analyzer-unwrapped
-      xclip
-      stylua
-      marksman
-      markdownlint-cli
-      vscode-langservers-extracted
-      ruff-lsp
-      basedpyright
       python3
+      ripgrep
+      xclip
+
+      # Formatters
+      black
+      stylua
+      nixfmt-rfc-style
+
+      # Language Servers
+      basedpyright
+      lua-language-server
+      marksman # Markdown
+      nil # Nix
+      nodePackages.typescript-language-server
+      ruff-lsp
+      rust-analyzer
+      taplo # TOML
+      vscode-langservers-extracted # css-lsp
+      yaml-language-server
+
+      # Linters
+      markdownlint-cli
     ];
 
     extraLuaConfig =
@@ -73,6 +85,7 @@ in
             { "williamboman/mason.nvim", enabled = false },
             -- import any extras modules here
             { import = "lazyvim.plugins.extras.lang.python" },
+            { import = "lazyvim.plugins.extras.lang.typescript" },
             -- import/override with your plugins
             { import = "plugins" },
             -- put this line at the end of spec to clear ensure_installed

@@ -35,15 +35,16 @@ in
   };
 
   imports = [
+    ../../programs/catppuccin.nix
     ../../programs/git.nix
-    ../../programs/tmux.nix
-    ../../programs/neovim
+    ../../programs/github.nix
     ../../programs/gpg.nix
     ../../programs/kitty.nix
+    ../../programs/neovim
+    ../../programs/node.nix
     ../../programs/plasma.nix
     ../../programs/spotify.nix
-    ../../programs/github.nix
     ../../programs/starship.nix
-    ../../programs/catppuccin.nix
+    ../../programs/tmux.nix
   ];
 }

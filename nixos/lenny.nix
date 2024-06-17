@@ -13,8 +13,14 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    systemd-boot = {
+      enable = true;
+      consoleMode = "auto";
+      configurationLimit = 25;  # Default is 120
+    };
+  };
 
   boot.initrd.luks.devices."luks-6449d4b3-f39e-482a-a650-fc0fb4b0b37a".device = "/dev/disk/by-uuid/6449d4b3-f39e-482a-a650-fc0fb4b0b37a";
 

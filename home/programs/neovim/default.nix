@@ -54,6 +54,7 @@ in
       markdownlint-cli
       ansible-lint
       hadolint
+      sqlfluff
     ];
 
     extraLuaConfig =
@@ -90,6 +91,7 @@ in
             { import = "lazyvim.plugins.extras.lang.typescript" },
             { import = "lazyvim.plugins.extras.lang.ansible" },
             { import = "lazyvim.plugins.extras.lang.docker" },
+            { import = "lazyvim.plugins.extras.lang.sql" },
             -- import/override with your plugins
             { import = "plugins" },
             -- put this line at the end of spec to clear ensure_installed

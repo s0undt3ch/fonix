@@ -74,6 +74,9 @@ let
     trim-nvim
     trouble-nvim
     ts-comments-nvim
+    vim-dadbod
+    vim-dadbod-completion
+    vim-dadbod-ui
     vim-startuptime
     vim-tmux-navigator
     which-key-nvim

@@ -94,6 +94,7 @@ in
             { import = "lazyvim.plugins.extras.lang.sql" },
             { import = "lazyvim.plugins.extras.lang.toml" },
             { import = "lazyvim.plugins.extras.lang.yaml" },
+            { import = "lazyvim.plugins.extras.linting.eslint" },
             -- import/override with your plugins
             { import = "plugins" },
             -- put this line at the end of spec to clear ensure_installed

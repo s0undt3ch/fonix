@@ -92,6 +92,7 @@ in
             { import = "lazyvim.plugins.extras.lang.ansible" },
             { import = "lazyvim.plugins.extras.lang.docker" },
             { import = "lazyvim.plugins.extras.lang.sql" },
+            { import = "lazyvim.plugins.extras.lang.toml" },
             -- import/override with your plugins
             { import = "plugins" },
             -- put this line at the end of spec to clear ensure_installed

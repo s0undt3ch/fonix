@@ -46,7 +46,11 @@
 
     # NVim plugins from GitHub which are not yet packaged
     venv-selector-nvim = {
-      url = "github:linux-cultist/venv-selector.nvim";
+      url = "github:linux-cultist/venv-selector.nvim/regexp";
+      flake = false;
+    };
+    ansible-nvim = {
+      url = "github:mfussenegger/nvim-ansible";
       flake = false;
     };
   };

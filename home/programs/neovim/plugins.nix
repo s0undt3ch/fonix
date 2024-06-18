@@ -10,6 +10,11 @@ let
     src = inputs.venv-selector-nvim;
   };
 
+  ansible-nvim = pkgs-unstable.vimUtils.buildVimPlugin {
+    name = "ansible-nvim";
+    src = inputs.ansible-nvim;
+  };
+
   mkEntryFromDrv =
     drv:
     if lib.isDerivation drv then
@@ -21,6 +26,7 @@ let
       drv;
 
   plugins = with pkgs-unstable.vimPlugins; [
+    ansible-nvim
     bufferline-nvim
     cmp-buffer
     cmp-nvim-lsp
@@ -61,7 +67,6 @@ let
     plenary-nvim
     rustaceanvim
     SchemaStore-nvim
-    semshi
     telescope-fzf-native-nvim
     telescope-nvim
     todo-comments-nvim

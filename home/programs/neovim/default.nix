@@ -52,6 +52,7 @@ in
 
       # Linters
       markdownlint-cli
+      ansible-lint
     ];
 
     extraLuaConfig =
@@ -86,6 +87,7 @@ in
             -- import any extras modules here
             { import = "lazyvim.plugins.extras.lang.python" },
             { import = "lazyvim.plugins.extras.lang.typescript" },
+            { import = "lazyvim.plugins.extras.lang.ansible" },
             -- import/override with your plugins
             { import = "plugins" },
             -- put this line at the end of spec to clear ensure_installed

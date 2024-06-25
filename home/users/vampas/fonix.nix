@@ -2,6 +2,7 @@
 {
   imports = [
     ./common.nix
+    ../../programs/gimp.nix
     ../../programs/vlc.nix
     ../../programs/user-scripts.nix
   ];

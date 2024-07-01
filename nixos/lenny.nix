@@ -18,7 +18,7 @@
     systemd-boot = {
       enable = true;
       consoleMode = "auto";
-      configurationLimit = 25;  # Default is 120
+      configurationLimit = 25; # Default is 120
     };
   };
 
@@ -113,6 +113,9 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  # Install chromium
+  programs.chromium.enable = true;
 
   # Vim should be the default editor
   programs.vim.defaultEditor = true;

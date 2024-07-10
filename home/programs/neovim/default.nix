@@ -88,7 +88,7 @@ in
             { "williamboman/mason.nvim", enabled = false },
             -- import any extras modules here
             { import = "lazyvim.plugins.extras.lang.python" },
-            { import = "lazyvim.plugins.extras.lang.typescript" },
+            -- { import = "lazyvim.plugins.extras.lang.typescript" },
             { import = "lazyvim.plugins.extras.lang.ansible" },
             { import = "lazyvim.plugins.extras.lang.docker" },
             { import = "lazyvim.plugins.extras.lang.sql" },
@@ -137,8 +137,8 @@ in
               -- disable some rtp plugins
               disabled_plugins = {
                 "gzip",
-                "matchit",
-                "matchparen",
+                --"matchit",
+                --"matchparen",
                 "netrwPlugin",
                 "tarPlugin",
                 "tohtml",

@@ -132,6 +132,8 @@
     kdePackages.sddm-kcm
     kdePackages.kio-extras
     kdePackages.kcalc
+    chromium
+    zoom-us
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
